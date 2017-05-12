@@ -2,6 +2,11 @@
 
 using namespace std;
 
+struct Node {
+    unsigned char c;
+    Node *left = NULL, *right = NULL;
+};
+
 int main(int argc, char **argv) {
     int freq[256] = {};
 
@@ -30,5 +35,6 @@ int main(int argc, char **argv) {
         if(feof(f)) break;
         freq[c]++;
     }
+
 
 }
