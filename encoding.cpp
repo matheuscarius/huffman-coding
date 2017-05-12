@@ -4,6 +4,7 @@ using namespace std;
 
 struct Node {
     unsigned char c;
+    int f = 0;
     Node *left = NULL, *right = NULL;
 };
 
