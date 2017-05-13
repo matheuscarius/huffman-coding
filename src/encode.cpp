@@ -23,24 +23,24 @@ struct nodeptrcomp {
 void print_tree(Node *root, FILE *out) {
     if(root == NULL) return;
     else if(root->left == NULL and root->right == NULL) {
-        //'.' indicates a leaf-node, followed by char of leaf
-        fputc('.', out), fputc(root->c, out);
+        //'11' indicates a leaf-node, followed by char of leaf in binary
+        fputs("11", out), fputs(bitset<8>(root->c).to_string().c_str(), out);
         return;
     }
 
-    //'0' indicates go to left
-    fputc('0', out);
+    //'00' indicates go to left
+    fputs("00", out);
     //go to left child
     print_tree(root->left, out);
-    //'*' indicates go up
-    fputc('*', out);
+    //'10' indicates go up
+    fputs("10", out);
 
-    //'1' indicates go to right
-    fputc('1', out);
+    //'01' indicates go to right
+    fputs("01", out);
     //go to right child
     print_tree(root->right, out);
-    //'*' indicates go up
-    fputc('*', out);
+    //'10' indicates go up
+    fputs("10", out);
 }
 
 //Build code table
@@ -122,7 +122,7 @@ int main(int argc, char **argv) {
     //Write Huffman Tree
     print_tree(root, out);
     //Indicates end of tree
-    fputc('*', out);
+    fputs("10", out);
 
     //Set FILE pointer to begin
     rewind(in);

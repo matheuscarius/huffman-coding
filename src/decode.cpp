@@ -69,20 +69,21 @@ int main(int argc, char **argv) {
     Node *root = new Node;
     Node *aux = root;
     while(aux != NULL) {
-        unsigned char c = fgetc(in);
+        unsigned char c1 = fgetc(in);
+        unsigned char c2 = fgetc(in);
         //Left child
-        if(c == '0')
+        if(c1 =='0' and c2 == '0')
             aux = aux->go_left();
         //Right child
-        else if(c == '1')
+        else if(c1 == '0' and c2 == '1')
             aux = aux->go_right();
         //Go up
-        else if(c == '*')
+        else if(c1 == '1' and c2 == '0')
             aux = aux->go_up();
         //Leaf node
-        else if(c == '.') {
-            c = fgetc(in);
-            aux->c = c;
+        else if(c1 == '1' and c2 == '1') {
+            for(int i = 0; i < 8; i++)
+                aux->c <<= 1, aux->c += (fgetc(in)-'0');
         }
     }
 
