@@ -20,16 +20,25 @@ struct nodeptrcomp {
 };
 
 //Print Huffman Tree
-void print_tree(Node *root, string& s) {
+void print_tree(Node *root, FILE *out) {
     if(root == NULL) return;
     else if(root->left == NULL and root->right == NULL)
-        cout << root->c << " : " << root->f << " : " << s << endl;
-    s.push_back('0');
-    print_tree(root->left, s);
-    s.pop_back();
-    s.push_back('1');
-    print_tree(root->right, s);
-    s.pop_back();
+        //'.' indicates a leaf-node, followed by char of leaf
+        fputc('.', out), fputc(root->c, out);
+
+    //'0' indicates go to left
+    fputc('0', out);
+    //go to left child
+    print_tree(root->left, out);
+    //'*' indicates go up
+    fputc('*', out);
+
+    //'1' indicates go to right
+    fputc('1', out);
+    //go to right child
+    print_tree(root->right, out);
+    //'*' indicates go up
+    fputc('*', out);
 }
 
 //Build code table
@@ -101,6 +110,17 @@ int main(int argc, char **argv) {
     map<unsigned char, string> code;
     string s;
     build_code_map(root, s, code);
+
+#if 0
+    for(auto x : code) {
+        printf("%c : %s\n", x.first, x.second.c_str());
+    }
+#endif
+
+    //Write Huffman Tree
+    print_tree(root, out);
+    //Indicates end of tree
+    fputc('*', out);
 
     //Set FILE pointer to begin
     rewind(in);
