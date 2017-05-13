@@ -22,9 +22,11 @@ struct nodeptrcomp {
 //Print Huffman Tree
 void print_tree(Node *root, FILE *out) {
     if(root == NULL) return;
-    else if(root->left == NULL and root->right == NULL)
+    else if(root->left == NULL and root->right == NULL) {
         //'.' indicates a leaf-node, followed by char of leaf
         fputc('.', out), fputc(root->c, out);
+        return;
+    }
 
     //'0' indicates go to left
     fputc('0', out);
