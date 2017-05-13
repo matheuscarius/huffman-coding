@@ -32,6 +32,19 @@ void print_tree(Node *root, string& s) {
     s.pop_back();
 }
 
+//Build code table
+void build_code_map(Node *root, string &s, map<unsigned char, string> &code) {
+    if(root == NULL) return;
+    else if(root->left == NULL and root->right == NULL)
+        code[root->c] = s;
+    s.push_back('0');
+    print_tree(root->left, s);
+    s.pop_back();
+    s.push_back('1');
+    print_tree(root->right, s);
+    s.pop_back();
+}
+
 int main(int argc, char **argv) {
     int freq[256] = {};
 
@@ -77,7 +90,9 @@ int main(int argc, char **argv) {
     //Extract Huffman Tree
     Node *root = pq.top(); pq.pop();
 
-    //Test tree
+    //Build code table
+    map<unsigned char, string> code;
     string s;
-    print_tree(root, s);
+    build_code_map(root, s, code);
+
 }
