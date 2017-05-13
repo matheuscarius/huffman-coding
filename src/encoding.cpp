@@ -38,10 +38,10 @@ void build_code_map(Node *root, string &s, map<unsigned char, string> &code) {
     else if(root->left == NULL and root->right == NULL)
         code[root->c] = s;
     s.push_back('0');
-    print_tree(root->left, s);
+    build_code_map(root->left, s, code);
     s.pop_back();
     s.push_back('1');
-    print_tree(root->right, s);
+    build_code_map(root->right, s, code);
     s.pop_back();
 }
 
@@ -105,4 +105,15 @@ int main(int argc, char **argv) {
     //Set FILE pointer to begin
     rewind(in);
 
+    //Encode and write to output
+    while(1) {
+        unsigned char c = fgetc(in);
+        if(feof(in)) break;
+        fprintf(out, "%s", code[c].c_str());
+    }
+
+    fclose(in);
+    fclose(out);
+
+    return 0;
 }
