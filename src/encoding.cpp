@@ -60,17 +60,24 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    //Open file
-    FILE *f = fopen(argv[1], "r");
-    if(f == NULL) {
+    //Open input file
+    FILE *in = fopen(argv[1], "r");
+    if(in == NULL) {
         fprintf(stderr, "Could not open '%s'\n", argv[1]);
+        return 0;
+    }
+
+    //Open output file
+    FILE *out = fopen(argv[2], "w");
+    if(in == NULL) {
+        fprintf(stderr, "Could not open '%s'\n", argv[2]);
         return 0;
     }
 
     //Count frequencies
     while(1) {
-        unsigned char c = fgetc(f);
-        if(feof(f)) break;
+        unsigned char c = fgetc(in);
+        if(feof(in)) break;
         freq[c]++;
     }
 
@@ -96,6 +103,6 @@ int main(int argc, char **argv) {
     build_code_map(root, s, code);
 
     //Set FILE pointer to begin
-    rewind(f);
+    rewind(in);
 
 }
