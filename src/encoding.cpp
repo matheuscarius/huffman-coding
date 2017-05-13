@@ -49,14 +49,14 @@ int main(int argc, char **argv) {
     int freq[256] = {};
 
     //Explain usage
-    if(argc == 1) {
+    if(argc < 3) {
         fprintf(stderr, "Missing argument\n");
-        fprintf(stderr, "Usage: %s <file>\n", argv[0]);
+        fprintf(stderr, "Usage: %s <input-file> <output-file>\n", argv[0]);
         return 0;
     }
-    else if(argc > 2) {
+    else if(argc > 3) {
         fprintf(stderr, "Too many arguments\n");
-        fprintf(stderr, "Usage: %s <file>\n", argv[0]);
+        fprintf(stderr, "Usage: %s <input-file> <output-file>\n", argv[0]);
         return 0;
     }
 
@@ -94,5 +94,8 @@ int main(int argc, char **argv) {
     map<unsigned char, string> code;
     string s;
     build_code_map(root, s, code);
+
+    //Set FILE pointer to begin
+    rewind(f);
 
 }
