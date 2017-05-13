@@ -10,3 +10,6 @@ encode:
 text2bin:
 	$(MKDIRP) bin
 	$(CXX) $(CPPFLAGS) -o bin/text2bin src/text2bin.cpp
+
+clean:
+	rm -R bin/
